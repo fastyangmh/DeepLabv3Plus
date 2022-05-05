@@ -133,7 +133,7 @@ class UnsupervisedModel(BaseModel):
         self.log('val_loss', loss, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
-        loss, pesq = self.shared_step(batch=batch)
+        loss = self.shared_step(batch=batch)
         self.log('test_loss', loss, prog_bar=True)
 
 
