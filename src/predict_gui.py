@@ -91,7 +91,7 @@ class PredictGUI(BasePredictGUI):
                 subplot.imshow(sample, cmap=cmap)
             elif (idx - 1) % 2 == 1:
                 # plot mask
-                subplot.imshow(mask, cmap=cmap)
+                subplot.imshow(mask, cmap='gray')   #assume mask is gray-scale
             subplot.axis('off')
         self.image_canvas.draw()
 
