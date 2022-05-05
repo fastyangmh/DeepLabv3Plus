@@ -3,3 +3,43 @@ mode: train
 root: data/
 predefined_dataset: VOCSegmentation
 classes: ["image", "mask"]
+max_samples: null
+batch_size: 32
+num_workers: 0
+device: cuda
+
+# transforms configuration
+transforms_config:
+  train:
+    Resize:
+      - 256
+      - 256
+    ToTensor:
+
+  val:
+    Resize:
+      - 256
+      - 256
+    ToTensor:
+
+  test:
+    Resize:
+      - 256
+      - 256
+    ToTensor:
+
+  predict:
+    Resize:
+      - 256
+      - 256
+    ToTensor:
+
+# target transforms configuration
+target_transforms_config:
+  train: null
+
+  val: null
+
+  test: null
+
+  predict: null
