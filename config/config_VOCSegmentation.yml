@@ -15,6 +15,13 @@ depth: 5
 input_height: 256
 loss_function_name: BCELoss
 checkpoint_path: null
+seed: 0
+early_stopping: True
+patience: 3
+default_root_dir: save/
+gpus: -1
+precision: 32
+max_epochs: 100
 
 # transforms configuration
 transforms_config:
