@@ -23,6 +23,15 @@ gpus: -1
 precision: 32
 max_epochs: 100
 color_space: RGB # (3x8-bit pixels, true color)
+web_interface: True
+examples:
+  [
+    "examples/VOCSegmentation/image_000032.jpg",
+    "examples/VOCSegmentation/image_000033.jpg",
+    "examples/VOCSegmentation/image_000039.jpg",
+    "examples/VOCSegmentation/image_000042.jpg",
+    "examples/VOCSegmentation/image_000061.jpg",
+  ]
 
 # transforms configuration
 transforms_config:
