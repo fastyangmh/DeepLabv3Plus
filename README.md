@@ -1,6 +1,6 @@
-# DeepLabv3 plus
+# DeepLabv3Plus
 
-This repository uses the DeepLabv3 plus architecture for segmentation task and provides training, prediction, prediction GUI, prediction Web GUI, hyperparameters tuning.
+This repository uses the DeepLabv3Plus architecture for segmentation task and provides training, prediction, prediction GUI, prediction Web GUI, hyperparameters tuning.
 
 ## Installation
 
