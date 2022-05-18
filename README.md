@@ -1,6 +1,6 @@
-# UNet
+# DeepLabv3 plus
 
-This repository uses the UNet architecture for segmentation task and provides training, prediction, prediction GUI, prediction Web GUI, hyperparameters tuning.
+This repository uses the DeepLabv3 plus architecture for segmentation task and provides training, prediction, prediction GUI, prediction Web GUI, hyperparameters tuning.
 
 ## Installation
 

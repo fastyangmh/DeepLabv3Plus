@@ -1,10 +1,15 @@
 #import
+from glob import glob
 from src.project_parameters import ProjectParameters
 from DeepLearningTemplate.data_preparation import MyVOCSegmentation, MyImageFolder, ImageLightningDataModule
 from typing import Optional, Callable
 import numpy as np
 from typing import Tuple, Any
 from PIL import Image
+from os.path import join
+import random
+import torch
+from torchvision.datasets.folder import IMG_EXTENSIONS
 
 
 #def
@@ -36,21 +41,40 @@ class MyImageFolder(MyImageFolder):
         super().__init__(root,
                          transform=transform,
                          target_transform=target_transform)
-        samples = np.array(self.samples)
-        targets = np.array(self.targets)
-        self.images = samples[targets == self.class_to_idx['image'], 0]
-        self.masks = samples[targets == self.class_to_idx['mask'], 0]
+        self.images = []
+        self.masks = []
+        for ext in IMG_EXTENSIONS:
+            self.images += glob(join(root, f'image/*{ext}'))
+            self.masks += glob(join(root, f'mask/*{ext}'))
+        self.classes = np.loadtxt(fname=join(
+            root.rsplit('/', 1)[0], 'classes.txt'),
+                                  dtype=str).tolist()
+        self.class_to_idx = {k: v for v, k in enumerate(self.classes)}
 
     def __len__(self) -> int:
         return len(self.images)
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
-        img = Image.open(self.images[index])  #assume the image is RGB channels
+        img = Image.open(self.images[index]).convert("RGB")
         target = Image.open(self.masks[index])
         if self.transform is not None:
+            state = torch.get_rng_state()
             img = self.transform(img)
+            torch.set_rng_state(new_state=state)
             target = self.transform(target)
+        if target.dtype == torch.float32:
+            target = (target * 255).long()
+            target[target == 255] = 0
+        if self.target_transform:
+            target = self.target_transform(target)
         return img, target
+
+    def decrease_samples(self, max_samples):
+        if max_samples is not None:
+            index = random.sample(population=range(len(self.images)),
+                                  k=max_samples)
+            self.images = np.array(self.images)[index]
+            self.masks = np.array(self.masks)[index]
 
 
 if __name__ == '__main__':
