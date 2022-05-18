@@ -7,6 +7,35 @@ max_samples: null
 batch_size: 32
 num_workers: 0
 device: cuda
+lr: 1e-3
+in_chans: 3
+hidden_chans: 32
+chans_scale: 2
+depth: 5
+input_height: 256
+loss_function_name: BCELoss
+checkpoint_path: null
+seed: 0
+early_stopping: True
+patience: 3
+default_root_dir: save/
+gpus: -1
+precision: 32
+max_epochs: 100
+color_space: RGB # (3x8-bit pixels, true color)
+web_interface: True
+examples:
+  [
+    "examples/VOCSegmentation/image_000032.jpg",
+    "examples/VOCSegmentation/image_000033.jpg",
+    "examples/VOCSegmentation/image_000039.jpg",
+    "examples/VOCSegmentation/image_000042.jpg",
+    "examples/VOCSegmentation/image_000061.jpg",
+  ]
+tuning_test: False
+cpu_resources_per_trial: 1
+gpu_resources_per_trial: 1
+num_samples: 100
 
 # transforms configuration
 transforms_config:
@@ -43,3 +72,30 @@ target_transforms_config:
   test: null
 
   predict: null
+
+# optimizers configuration
+optimizers_config:
+  Adam:
+    betas:
+      - 0.9
+      - 0.999
+    eps: 1e-08
+    weight_decay: 0
+    amsgrad: False
+
+# learning rate schedulers configuration
+lr_schedulers_config:
+  CosineAnnealingLR:
+    T_max: 10
+
+# hyperparameter space configuration
+hyperparameter_space_config:
+  lr:
+    uniform:
+      lower: 1e-4
+      upper: 1e-1
+
+  max_epochs:
+    randint:
+      lower: 10
+      upper: 200
