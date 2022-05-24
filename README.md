@@ -1,6 +1,6 @@
-# UNet
+# DeepLabv3Plus
 
-This repository uses the UNet architecture for segmentation task and provides training, prediction, prediction GUI, prediction Web GUI, hyperparameters tuning.
+This repository uses the DeepLabv3Plus architecture for segmentation task and provides training, prediction, prediction GUI, prediction Web GUI, hyperparameters tuning.
 
 ## Installation
 
@@ -14,29 +14,30 @@ Please prepare the dataset according to the following examples.
 
 ```
 dataset/
+├── classes.txt
 ├── train
-│   ├── image
-│   │   ├── image1.png
-│   │   ├── image2.png
-│   │   └── image3.png
-│   └── mask
-│       ├── mask1.png
-│       ├── mask2.png
-│       └── mask3.png
+│   ├── image
+│   │   ├── image1.png
+│   │   ├── image2.png
+│   │   └── image3.png
+│   └── mask
+│       ├── mask1.png
+│       ├── mask2.png
+│       └── mask3.png
 ├── val
-│   ├── image
-│   │   ├── image1.png
-│   │   ├── image2.png
-│   │   └── image3.png
-│   └── mask
-│       ├── mask1.png
-│       ├── mask2.png
-│       └── mask3.png
+│   ├── image
+│   │   ├── image1.png
+│   │   ├── image2.png
+│   │   └── image3.png
+│   └── mask
+│       ├── mask1.png
+│       ├── mask2.png
+│       └── mask3.png
 └── test
     ├── image
-    │   ├── image1.png
-    │   ├── image2.png
-    │   └── image3.png
+    │   ├── image1.png
+    │   ├── image2.png
+    │   └── image3.png
     └── mask
         ├── mask1.png
         ├── mask2.png

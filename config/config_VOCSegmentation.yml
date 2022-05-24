@@ -2,18 +2,38 @@
 mode: train
 root: data/
 predefined_dataset: VOCSegmentation
-classes: ["image", "mask"]
+classes:
+  [
+    "background",
+    "aeroplane",
+    "bicycle",
+    "bird",
+    "boat",
+    "bottle",
+    "bus",
+    "car",
+    "cat",
+    "chair",
+    "cow",
+    "diningtable",
+    "dog",
+    "horse",
+    "motorbike",
+    "person",
+    "pottedplant",
+    "sheep",
+    "sofa",
+    "train",
+    "tvmonitor",
+  ]
 max_samples: null
 batch_size: 32
 num_workers: 0
 device: cuda
 lr: 1e-3
+model_name: tf_mobilenetv3_small_minimal_100
 in_chans: 3
-hidden_chans: 32
-chans_scale: 2
-depth: 5
-input_height: 256
-loss_function_name: BCELoss
+loss_function_name: BCEWithLogitsLoss
 checkpoint_path: null
 seed: 0
 early_stopping: True
@@ -43,7 +63,11 @@ transforms_config:
     Resize:
       - 256
       - 256
+    RandomVerticalFlip:
+    RandomHorizontalFlip:
+    RandomRotation: 90
     ToTensor:
+    RandomErasing:
 
   val:
     Resize:
@@ -65,13 +89,21 @@ transforms_config:
 
 # target transforms configuration
 target_transforms_config:
-  train: null
+  train:
+    OneHotEncoder:
+      num_classes: null
 
-  val: null
+  val:
+    OneHotEncoder:
+      num_classes: null
 
-  test: null
+  test:
+    OneHotEncoder:
+      num_classes: null
 
-  predict: null
+  predict:
+    OneHotEncoder:
+      num_classes: null
 
 # optimizers configuration
 optimizers_config:
