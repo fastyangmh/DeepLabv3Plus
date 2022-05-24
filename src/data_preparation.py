@@ -46,6 +46,8 @@ class MyImageFolder(MyImageFolder):
         for ext in IMG_EXTENSIONS:
             self.images += glob(join(root, f'image/*{ext}'))
             self.masks += glob(join(root, f'mask/*{ext}'))
+        self.images = sorted(self.images)
+        self.masks = sorted(self.masks)
         self.classes = np.loadtxt(fname=join(
             root.rsplit('/', 1)[0], 'classes.txt'),
                                   dtype=str).tolist()
@@ -63,7 +65,7 @@ class MyImageFolder(MyImageFolder):
             torch.set_rng_state(new_state=state)
             target = self.transform(target)
         if target.dtype == torch.float32:
-            target = (target * 255).long()
+            target = (target * 255).round().long()
             target[target == 255] = 0
         if self.target_transform:
             target = self.target_transform(target)
